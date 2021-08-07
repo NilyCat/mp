@@ -1,13 +1,13 @@
 import { qs } from '@nily/utils'
 
-function routerQuery(url: string, query?: Record<string, any>): string {
+function queryBuilder(url: string, query?: Record<string, any>): string {
   if (query) {
-    url += '?' + qs.stringify(query)
+    url += (!url.includes('?') ? '?' : '&') + qs.stringify(query)
   }
   return url
 }
 
-export class Router {
+export class MpRouter {
   /**
    * 跳转到 tabBar 页面，并关闭其他所有非 tabBar 页。
    *
@@ -19,7 +19,7 @@ export class Router {
     options?: Omit<WechatMiniprogram.SwitchTabOption, 'url'>
   ): void {
     wx.switchTab({
-      url: routerQuery(url, query),
+      url: queryBuilder(url, query),
       ...options
     })
   }
@@ -35,7 +35,7 @@ export class Router {
     options?: Omit<WechatMiniprogram.NavigateToOption, 'url'>
   ): void {
     wx.navigateTo({
-      url: routerQuery(url, query),
+      url: queryBuilder(url, query),
       ...options
     })
   }
@@ -51,7 +51,7 @@ export class Router {
     options?: Omit<WechatMiniprogram.RedirectToOption, 'url'>
   ): void {
     wx.redirectTo({
-      url: routerQuery(url, query),
+      url: queryBuilder(url, query),
       ...options
     })
   }

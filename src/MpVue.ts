@@ -1,13 +1,13 @@
 import { Vue } from 'vue-property-decorator'
 import { ClassComponent } from './Decorator'
-import { Router } from './Router'
+import { MpRouter } from './MpRouter'
 
 @ClassComponent
 export class MpVue extends Vue {
   // 微信小程序方法
   $wx!: WechatMiniprogram.Wx
   // 路由控制
-  $router!: Router
+  $mpRouter!: MpRouter
 
   /**
    * 显示消息提示
@@ -141,4 +141,4 @@ export class MpVue extends Vue {
 
 // 方法附加到实例
 MpVue.prototype.$wx = wx
-MpVue.prototype.$router = Router
+MpVue.prototype.$mpRouter = MpRouter

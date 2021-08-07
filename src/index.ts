@@ -1,5 +1,5 @@
 export * from './MpVue'
-export * from './Router'
+export * from './MpRouter'
 export * from './Decorator'
 export * from './Fetch'
 export * from './RefreshControl'
