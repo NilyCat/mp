@@ -1,6 +1,6 @@
 {
   "name": "@nily/mp",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/NilyCat/mp",
   "repository": {
     "type": "git",
@@ -31,16 +31,16 @@
     ]
   },
   "peerDependencies": {
-    "@dcloudio/types": "^2.4.5",
     "@nily/utils": "^0.1.0",
+    "miniprogram-api-typings": "^3.4.2",
     "tslib": "^2.3.0",
     "vue": "^2.6.14",
     "vue-class-component": "^7.2.6",
     "vue-property-decorator": "^9.1.2"
   },
   "dependencies": {
-    "@dcloudio/types": "^2.4.5",
     "@nily/utils": "^0.1.0",
+    "miniprogram-api-typings": "^3.4.2",
     "tslib": "^2.3.0",
     "vue": "^2.6.14",
     "vue-class-component": "^7.2.6",

@@ -45,7 +45,7 @@ export class Fetch extends Vue {
    */
   $afterRequest(err?: Error): any {
     if (err) {
-      this.$toast(err!.message)
+      this.$showToast(err!.message)
     }
   }
 }
