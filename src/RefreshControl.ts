@@ -1,18 +1,18 @@
-import { Component } from 'vue-property-decorator'
+import { ClassComponent } from './Decorator'
 import { Fetch } from './Fetch'
 
 export interface RefreshControlOptions {
   pullDownRefresh: boolean
 }
 
-@Component
+@ClassComponent
 export class RefreshControl extends Fetch {
   refreshing = false
 
   /**
    * 监听用户下拉刷新事件
    *
-   * 文档: https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html#onPullDownRefresh
+   * - [onPullDownRefresh](https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html#onPullDownRefresh)
    */
   onPullDownRefresh(): any {
     this.$request({

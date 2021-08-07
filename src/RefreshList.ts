@@ -1,16 +1,16 @@
-import { RefreshControlOptions } from './RefreshControl'
-import { Component } from 'vue-property-decorator'
-import { List, Pagination } from './List'
 import { isValid } from '@nily/utils'
+import { ClassComponent } from './Decorator'
+import { List, Pagination } from './List'
+import { RefreshControlOptions } from './RefreshControl'
 
-@Component
-export class InfinitePullRefreshComponent extends List {
+@ClassComponent
+export class RefreshList extends List {
   refreshing = false
 
   /**
    * 监听用户下拉刷新事件
    *
-   * 文档: https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html#onPullDownRefresh
+   * - [onPullDownRefresh](https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html#onPullDownRefresh)
    */
   onPullDownRefresh(): any {
     this.$request({
@@ -21,7 +21,7 @@ export class InfinitePullRefreshComponent extends List {
   /**
    * 用户上拉触底后加载下一页数据
    *
-   * 文档 https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html#onReachBottom
+   * - [onReachBottom](https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html#onReachBottom)
    */
   onReachBottom(): any {
     if (!this.refreshing) {

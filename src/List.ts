@@ -1,5 +1,5 @@
 import { isValid } from '@nily/utils'
-import { Component } from 'vue-property-decorator'
+import { ClassComponent } from './Decorator'
 import { Fetch } from './Fetch'
 
 export interface Pagination {
@@ -8,7 +8,7 @@ export interface Pagination {
   totalCount?: number
 }
 
-@Component
+@ClassComponent
 export class List extends Fetch {
   // 页数
   page = 1
@@ -20,7 +20,7 @@ export class List extends Fetch {
   /**
    * 用户上拉触底后加载下一页数据
    *
-   * 文档 https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html#onReachBottom
+   * - [onReachBottom](https://developers.weixin.qq.com/miniprogram/dev/reference/api/Page.html#onReachBottom)
    */
   onReachBottom() {
     this.$request()

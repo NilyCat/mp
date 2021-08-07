@@ -1,8 +1,8 @@
-import { Component } from 'vue-property-decorator'
-import { Vue } from './Vue'
+import { ClassComponent } from './Decorator'
+import { MpVue } from './MpVue'
 
-@Component
-export class Fetch extends Vue {
+@ClassComponent
+export class Fetch extends MpVue {
   pending = false
 
   mounted() {

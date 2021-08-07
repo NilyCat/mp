@@ -1,5 +1,5 @@
 export {
-  Component,
+  Component as ClassComponent, // ClassComponent 以区别微信小程序 typing
   Mixins,
   Emit,
   Inject,
