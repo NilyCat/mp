@@ -7,7 +7,7 @@ export class MpVue extends Vue {
   // 微信小程序方法
   $wx!: WechatMiniprogram.Wx
   // 路由控制
-  $mpRouter!: MpRouter
+  $mpRouter!: typeof MpRouter
 
   /**
    * 显示消息提示

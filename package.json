@@ -1,6 +1,6 @@
 {
   "name": "@nily/mp",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "homepage": "https://github.com/NilyCat/mp",
   "repository": {
     "type": "git",
@@ -9,6 +9,7 @@
   "license": "MIT",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
+  "types": "./types/index.d.ts",
   "scripts": {
     "build": "npm run build:esm && npm run build:cjs",
     "build:esm": "tsc -p tsconfig-build.json",
