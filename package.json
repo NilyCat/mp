@@ -14,9 +14,11 @@
     "build": "npm run build:esm && npm run build:cjs",
     "build:esm": "tsc -p tsconfig-build.json",
     "build:cjs": "tsc -p tsconfig-build-cjs.json",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "cov": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "type-check": "tsc --pretty --noEmit",
     "format": "prettier --write ./src",
-    "lint": "eslint . --ext .ts --quiet",
+    "lint": "eslint --ext .ts ./src",
     "prebuild": "rimraf lib"
   },
   "husky": {
@@ -34,6 +36,7 @@
   "peerDependencies": {
     "@nily/utils": "^0.1.0",
     "miniprogram-api-typings": "^3.4.2",
+    "ol": "^6.6.1",
     "tslib": "^2.3.0",
     "vue": "^2.6.14",
     "vue-class-component": "^7.2.6",
@@ -42,12 +45,14 @@
   "dependencies": {
     "@nily/utils": "^0.1.0",
     "miniprogram-api-typings": "^3.4.2",
+    "ol": "^6.6.1",
     "tslib": "^2.3.0",
     "vue": "^2.6.14",
     "vue-class-component": "^7.2.6",
     "vue-property-decorator": "^9.1.2"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.24",
     "@types/node": "^16.4.13",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
@@ -58,9 +63,32 @@
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.4.0",
     "husky": "^7.0.1",
+    "jest": "^27.0.6",
     "lint-staged": "^11.1.2",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.4",
     "typescript": "^4.3.5"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!ol)"
+    ],
+    "testEnvironment": "node",
+    "preset": "ts-jest/presets/default-esm",
+    "globals": {
+      "ts-jest": {
+        "useESM": true
+      }
+    },
+    "testRegex": "(/tests/.*|(\\.|/)spec)\\.ts$",
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ]
   }
 }

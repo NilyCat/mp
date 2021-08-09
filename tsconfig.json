@@ -20,7 +20,8 @@
     "importHelpers": true,
     "resolveJsonModule": false,
     "types": [
-      "miniprogram-api-typings"
+      "miniprogram-api-typings",
+      "jest"
     ]
   },
   "exclude": [
