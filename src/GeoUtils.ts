@@ -38,74 +38,27 @@ export function isPointInPolygon(point: GeoPoint, polygon: GeoPolygon): boolean 
    * 判断是否在多边形内部
    * 计算定位点水平射线与多边形有多少个交点
    * 交点数量为偶数不在范围内, 奇数则在范围内
+   * 算法参考：https://wrf.ecse.rpi.edu/Research/Short_Notes/pnpoly.html
    */
-  const n = polygon.length
-  const precision = 2e-10 // 浮点类型计算时候与 0 比较时候的容差
-  let count = 0 // 交点数量
+  let inside = false
+  const len = polygon.length
+  const x = point.longitude
+  const y = point.latitude
 
-  let p1: GeoPoint = polygon[0]
-  let p2: GeoPoint
+  for (let i = 0, j = len - 1; i < len; j = i++) {
+    const xi = polygon[i].longitude
+    const yi = polygon[i].latitude
+    const xj = polygon[j].longitude
+    const yj = polygon[j].latitude
 
-  for (let i = 1; i <= n; ++i) {
-    p2 = polygon[i % n]
+    const intersect = yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi
 
-    if (
-      point.latitude < Math.min(p1.latitude, p2.latitude) ||
-      point.latitude > Math.max(p1.latitude, p2.latitude)
-    ) {
-      p1 = p2
-      continue
+    if (intersect) {
+      inside = !inside
     }
-
-    if (
-      point.latitude > Math.min(p1.latitude, p2.latitude) &&
-      point.latitude < Math.max(p1.latitude, p2.latitude)
-    ) {
-      if (point.longitude <= Math.max(p1.longitude, p2.longitude)) {
-        if (p1.latitude == p2.latitude && point.longitude >= Math.min(p1.longitude, p2.longitude)) {
-          return true
-        }
-
-        if (p1.longitude == p2.longitude) {
-          if (p1.longitude == point.longitude) {
-            return true
-          } else {
-            ++count
-          }
-        } else {
-          const x =
-            ((point.latitude - p1.latitude) * (p2.longitude - p1.longitude)) /
-              (p2.latitude - p1.latitude) +
-            p1.longitude
-
-          if (Math.abs(point.longitude - x) < precision) {
-            return true
-          }
-
-          if (point.longitude < x) {
-            ++count
-          }
-        }
-      }
-    } else {
-      if (point.latitude == p2.latitude && point.longitude <= p2.longitude) {
-        const p3 = polygon[(i + 1) % n]
-
-        if (
-          point.latitude >= Math.min(p1.latitude, p3.latitude) &&
-          point.latitude <= Math.max(p1.latitude, p3.latitude)
-        ) {
-          ++count
-        } else {
-          count += 2
-        }
-      }
-    }
-
-    p1 = p2
   }
 
-  return count % 2 !== 0
+  return inside
 }
 
 /**
