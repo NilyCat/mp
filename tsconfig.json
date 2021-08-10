@@ -20,6 +20,7 @@
     "importHelpers": true,
     "resolveJsonModule": false,
     "types": [
+      "@dcloudio/types",
       "miniprogram-api-typings",
       "jest"
     ]

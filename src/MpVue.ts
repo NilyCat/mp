@@ -4,8 +4,6 @@ import { MpRouter } from './MpRouter'
 
 @ClassComponent
 export class MpVue extends Vue {
-  // 微信小程序方法
-  $wx!: WechatMiniprogram.Wx
   // 路由控制
   $mpRouter!: typeof MpRouter
 
@@ -15,7 +13,7 @@ export class MpVue extends Vue {
    * - [vue.$showToast](https://developers.weixin.qq.com/miniprogram/dev/api/ui/interaction/wx.showToast.html) 应与 [vue.$hideToast](https://developers.weixin.qq.com/miniprogram/dev/api/ui/interaction/wx.hideToast.html) 配对使用
    */
   $showToast(title: string, options?: Omit<WechatMiniprogram.ShowToastOption, 'title'>): void {
-    wx.showToast({
+    uni.showToast({
       title,
       icon: 'none',
       ...options
@@ -28,7 +26,7 @@ export class MpVue extends Vue {
    * - [vue.$toast](https://developers.weixin.qq.com/miniprogram/dev/api/ui/interaction/wx.showToast.html) 应与 [vue.$hideToast](https://developers.weixin.qq.com/miniprogram/dev/api/ui/interaction/wx.hideToast.html) 配对使用
    */
   $hideToast(): void {
-    wx.hideToast()
+    uni.hideToast()
   }
 
   /**
@@ -42,7 +40,7 @@ export class MpVue extends Vue {
     mask?: boolean,
     options?: Omit<WechatMiniprogram.ShowLoadingOption, 'title' | 'mask'>
   ): void {
-    wx.showLoading({
+    uni.showLoading({
       title,
       mask,
       ...options
@@ -51,7 +49,7 @@ export class MpVue extends Vue {
 
   // 隐藏 loading 提示框
   $hideLoading(): void {
-    wx.hideLoading()
+    uni.hideLoading()
   }
 
   /**
@@ -60,7 +58,8 @@ export class MpVue extends Vue {
    * - [vue.$showNavigationBarLoading(options?: Object)](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.showNavigationBarLoading.html)
    */
   $showNavigationBarLoading(options?: WechatMiniprogram.ShowNavigationBarLoadingOption): void {
-    wx.showNavigationBarLoading(options)
+    // @ts-ignore
+    uni.showNavigationBarLoading(options)
   }
 
   /**
@@ -69,7 +68,8 @@ export class MpVue extends Vue {
    * - [vue.$hideNavigationBarLoading(options?: Object)](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.hideNavigationBarLoading.html)
    */
   $hideNavigationBarLoading(options?: WechatMiniprogram.HideNavigationBarLoadingOption): void {
-    wx.hideNavigationBarLoading(options)
+    // @ts-ignore
+    uni.hideNavigationBarLoading(options)
   }
 
   /**
@@ -81,7 +81,7 @@ export class MpVue extends Vue {
     title: string,
     options?: Omit<WechatMiniprogram.SetNavigationBarTitleOption, 'title'>
   ): void {
-    wx.setNavigationBarTitle({
+    uni.setNavigationBarTitle({
       title,
       ...options
     })
@@ -93,7 +93,8 @@ export class MpVue extends Vue {
    * - [vue.$setNavigationBarColor(options: Object)](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.setNavigationBarColor.html)
    */
   $setNavigationBarColor(options: WechatMiniprogram.SetNavigationBarColorOption): void {
-    wx.setNavigationBarColor(options)
+    // @ts-ignore
+    uni.setNavigationBarColor(options)
   }
 
   /**
@@ -106,7 +107,8 @@ export class MpVue extends Vue {
     content?: string,
     options?: Omit<WechatMiniprogram.ShowModalOption, 'title' | 'content'>
   ): Promise<WechatMiniprogram.ShowModalSuccessCallbackResult> {
-    return wx.showModal({
+    // @ts-ignore
+    return uni.showModal({
       title,
       content,
       ...options
@@ -122,7 +124,8 @@ export class MpVue extends Vue {
     itemList: string[],
     options?: Omit<WechatMiniprogram.ShowActionSheetOption, 'itemList'>
   ): Promise<WechatMiniprogram.ShowActionSheetSuccessCallbackResult> {
-    return wx.showActionSheet({
+    // @ts-ignore
+    return uni.showActionSheet({
       itemList,
       ...options
     })
@@ -130,15 +133,14 @@ export class MpVue extends Vue {
 
   // 开始下拉刷新。调用后触发下拉刷新动画，效果与用户手动下拉刷新一致
   $startPullDownRefresh(options: WechatMiniprogram.StartPullDownRefreshOption): void {
-    wx.startPullDownRefresh(options)
+    uni.startPullDownRefresh(options)
   }
 
   // 停止当前页面下拉刷新
   $stopPullDownRefresh(): void {
-    wx.stopPullDownRefresh()
+    uni.stopPullDownRefresh()
   }
 }
 
 // 方法附加到实例
-MpVue.prototype.$wx = wx
 MpVue.prototype.$mpRouter = MpRouter

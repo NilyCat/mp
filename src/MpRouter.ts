@@ -18,7 +18,7 @@ export class MpRouter {
     query?: Record<string, any>,
     options?: Omit<WechatMiniprogram.SwitchTabOption, 'url'>
   ): void {
-    wx.switchTab({
+    uni.switchTab({
       url: queryBuilder(url, query),
       ...options
     })
@@ -34,7 +34,7 @@ export class MpRouter {
     query?: Record<string, any>,
     options?: Omit<WechatMiniprogram.NavigateToOption, 'url'>
   ): void {
-    wx.navigateTo({
+    uni.navigateTo({
       url: queryBuilder(url, query),
       ...options
     })
@@ -50,7 +50,7 @@ export class MpRouter {
     query?: Record<string, any>,
     options?: Omit<WechatMiniprogram.RedirectToOption, 'url'>
   ): void {
-    wx.redirectTo({
+    uni.redirectTo({
       url: queryBuilder(url, query),
       ...options
     })
@@ -62,7 +62,7 @@ export class MpRouter {
    * - [Router.back(delta?: number, options?: Object)](https://developers.weixin.qq.com/miniprogram/dev/api/route/wx.navigateBack.html)
    */
   static back(delta?: number, options?: Omit<WechatMiniprogram.NavigateBackOption, 'delta'>): void {
-    wx.navigateBack({
+    uni.navigateBack({
       delta,
       ...options
     } as any)
