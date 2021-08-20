@@ -1,4 +1,34 @@
-import { getPolygonRect, isPointInRect, GeoPolygon, isPointInPolygon } from '../src/GeoUtils'
+import {
+  GeoPolygon,
+  getPolygonCenter,
+  getPolygonRect,
+  getPolygonScale,
+  isPointInPolygon,
+  isPointInRect,
+  toEPSG3857
+} from '../src/GeoUtils'
+
+// https://developers.weixin.qq.com/miniprogram/dev/component/map.html#%E6%AF%94%E4%BE%8B%E5%B0%BA
+const MP_GEO_SCALES_MAP: Record<number, number> = {
+  3: 1000 * 1_000,
+  4: 500 * 1_000,
+  5: 200 * 1_000,
+  6: 100 * 1_000,
+  7: 50 * 1_000,
+  8: 50 * 1_000,
+  9: 20 * 1_000,
+  10: 10 * 1_000,
+  11: 5 * 1_000,
+  12: 2 * 1_000,
+  13: 1_000,
+  14: 500,
+  15: 200,
+  16: 100,
+  17: 50,
+  18: 50,
+  19: 20,
+  20: 10
+}
 
 describe('GeoUtils', () => {
   const polygon: GeoPolygon = [
@@ -46,7 +76,7 @@ describe('GeoUtils', () => {
     { longitude: 122.142805, latitude: 37.429198 },
     { longitude: 122.141711, latitude: 37.429029 }
   ]
-  const bounds = {
+  const rect = {
     ne: {
       longitude: 122.146292,
       latitude: 37.429198
@@ -57,8 +87,8 @@ describe('GeoUtils', () => {
     }
   }
 
-  test('polygon rect', () => {
-    expect(getPolygonRect(polygon)).toStrictEqual(bounds)
+  test('should get polygon rect', () => {
+    expect(getPolygonRect(polygon)).toStrictEqual(rect)
   })
 
   test('point should in rect', () => {
@@ -68,7 +98,7 @@ describe('GeoUtils', () => {
           longitude: 122.14177,
           latitude: 37.428574
         },
-        bounds
+        rect
       )
     ).toBe(true)
   })
@@ -80,7 +110,7 @@ describe('GeoUtils', () => {
           longitude: 132.14177,
           latitude: 37.428574
         },
-        bounds
+        rect
       )
     ).toBe(false)
   })
@@ -111,5 +141,28 @@ describe('GeoUtils', () => {
     expect(
       arr.map(p => isPointInPolygon({ longitude: p[0], latitude: p[1] }, polygon))
     ).toStrictEqual(Array.from({ length: arr.length }).fill(true))
+  })
+
+  test('should get polygon center point', () => {
+    expect(getPolygonCenter(polygon)).toStrictEqual({
+      latitude: 37.426182,
+      longitude: 122.1440015
+    })
+  })
+
+  test('should transform geo point to EPSG3857', () => {
+    expect(
+      toEPSG3857({
+        latitude: 37.426182,
+        longitude: 122.1440015
+      })
+    ).toStrictEqual({
+      x: 13597008.050432844,
+      y: 4498678.723147125
+    })
+  })
+
+  test('should get polygon scale', () => {
+    expect(getPolygonScale(polygon, MP_GEO_SCALES_MAP)).toBe(14.691091531332582)
   })
 })

@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "lib/cjs",
-    "target": "es2015",
+    "target": "es2017",
     "module": "commonjs",
     "skipLibCheck": true,
     "moduleResolution": "node"

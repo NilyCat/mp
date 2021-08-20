@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "lib/esm",
-    "target": "es2016",
+    "target": "es2017",
     "module": "esnext",
     "skipLibCheck": true,
     "moduleResolution": "node"
